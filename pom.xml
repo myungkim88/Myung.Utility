@@ -9,7 +9,7 @@
 	<repositories>
 		<repository>
 			<id>eap</id>
-			<url>http://maven.repository.redhat.com/techpreview/all</url>
+			<url>http://nexus-myungutils.rhcloud.com/nexus/content/groups/public/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -21,7 +21,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>eap</id>
-			<url>http://maven.repository.redhat.com/techpreview/all</url>
+			<url>http://nexus-myungutils.rhcloud.com/nexus/content/groups/public/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -52,7 +52,17 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.25</version>
-		</dependency>           
+		</dependency>      
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>2.5.6</version>
+		</dependency>     
 	</dependencies>
 	<profiles>
 		<profile>
