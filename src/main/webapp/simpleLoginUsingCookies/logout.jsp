@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="myung.utility.helper.CookieBox"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%
+	response.addCookie(CookieBox.createCookie("LOGIN", "", "/", 0));
+	response.addCookie(CookieBox.createCookie("ID", "", "/", 0));
+%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>로그인폼</title>
+<title>로그아웃</title>
 </head>
 <body>
-	<form
-		action="<%=request.getContextPath()%>/simpleLoginUsingCookies/login.jsp"
-		method="post">
-		아이디 <input type="text" name="id" size="10"> 
-		암호 <input type="password" name="password" size="10">
-		<input type="submit" value="로그인">
-	</form>
+로그아웃하였습니다.
 </body>
 </html>

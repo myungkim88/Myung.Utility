@@ -8,7 +8,7 @@
 </head>
 <body>
 	<form
-		action="<%=request.getContextPath()%>/simpleLoginUsingCookies/login.jsp"
+		action="<%=request.getContextPath()%>/simpleLoginUsingSession/sessionLogin.jsp"
 		method="post">
 		아이디 <input type="text" name="id" size="10"> 
 		암호 <input type="password" name="password" size="10">

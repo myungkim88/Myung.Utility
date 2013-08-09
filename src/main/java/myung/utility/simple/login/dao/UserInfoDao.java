@@ -19,13 +19,10 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
  */
 public class UserInfoDao extends JdbcDaoSupport {
 	private static final String ADD_NEW_USER = "INSERT INTO userInfo "
-			+ "(memberId, password, firstname, lastname, billingAddress, mailingAddress, "
-			+ "emailAddress, registeredDate, lastActiveDate, allowMail) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			+ "(memberId, password, fullname, emailAddress) VALUES (?,?,?,?)";
 	private static final String SELECT_AN_USER = "SELECT * FROM userInfo where memberId = ?";
 	private static final String SELECT_ALL_USERS = "SELECT * FROM userInfo";
 	private static final String DELETE_AN_USER = "DELETE FROM userInfo WHERE memberId=?";
-	private static final String UPDATE_AN_USER = "UPDATE userInfo SET password=?, "
-			+ "lastModifiedDate=?, allowMail=? where memberId=?";
 
 	/**
 	 * @param memberId
@@ -48,11 +45,7 @@ public class UserInfoDao extends JdbcDaoSupport {
 		getJdbcTemplate().update(
 				ADD_NEW_USER,
 				new Object[] { userInfo.getMemberId(), userInfo.getPassword(),
-						userInfo.getFirstname(), userInfo.getLastname(),
-						userInfo.getBillingAddress(),
-						userInfo.getMailingAddress(),
-						userInfo.getEmailAddress(), new Date(), new Date(),
-						userInfo.getAllowMail() });
+						userInfo.getName(), userInfo.getEmailAddress() });
 	}
 
 	public void deleteUserInfo(UserInfo userInfo) {
@@ -60,12 +53,6 @@ public class UserInfoDao extends JdbcDaoSupport {
 				new Object[] { userInfo.getMemberId() });
 	}
 
-	public void udpateUserInfo(UserInfo userInfo) {
-		getJdbcTemplate().update(
-				UPDATE_AN_USER,
-				new Object[] { userInfo.getPassword(), new Date(),
-						userInfo.getAllowMail() });
-	}
 }
 
 class UserInfoRowMapper implements RowMapper {
@@ -81,14 +68,8 @@ class UserInfoRowMapper implements RowMapper {
 		UserInfo userInfo = new UserInfo();
 		userInfo.setMemberId(rs.getString("memberId"));
 		userInfo.setPassword(rs.getString("password"));
-		userInfo.setFirstname(rs.getString("firstname"));
-		userInfo.setLastname(rs.getString("lastname"));
-		userInfo.setBillingAddress(rs.getString("billingAddress"));
-		userInfo.setMailingAddress(rs.getString("mailingAddress"));
-		userInfo.setEmailAddress(rs.getString("emailAddress"));
-		userInfo.setRegisteredDate(rs.getDate("registeredDate"));
-		userInfo.setLastActiveDate(rs.getDate("lastActiveDate"));
-		userInfo.setAllowMail(rs.getBoolean("allowMail"));
+		userInfo.setName(rs.getString("memberId"));
+		userInfo.setEmailAddress(rs.getString("email"));
 
 		return userInfo;
 	}
