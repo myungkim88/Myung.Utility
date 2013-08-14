@@ -3,9 +3,9 @@
  */
 package myung.utility.simple.login.dao;
 
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 import myung.utility.simple.login.model.UserInfo;
