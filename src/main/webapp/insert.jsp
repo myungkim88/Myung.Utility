@@ -2,38 +2,40 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.sql.DriverManager"%>
 <%@ page import="java.sql.Connection"%>
-<%@ page import="java.sql.Statement"%>
+<%@ page import="java.sql.PreparedStatement"%>
 <%@ page import="java.sql.SQLException"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
 	request.setCharacterEncoding("UTF-8");
-	String memberID = request.getParameter("memberID");
-	String name = request.getParameter("name");
 
-	int updateCount = 0;
+	String memberID = request.getParameter("memberID");
+	String password = request.getParameter("password");
+	String name = request.getParameter("name");
+	String email = request.getParameter("email");
 
 	Class.forName("com.mysql.jdbc.Driver");
 
 	Connection conn = null;
-	Statement stmt = null;
+	PreparedStatement pstmt = null;
 
 	try {
 		String jdbcDriver = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8";
 		String dbUser = "root";
 		String dbPass = "1234";
 
-		String query = "update simple_member set name = '" + name
-				+ "' " + "where memberId = '" + memberID + "'";
-
 		conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
-		stmt = conn.createStatement();
-		updateCount = stmt.executeUpdate(query);
+		pstmt = conn
+				.prepareStatement("insert into simple_member values (?,?,?,?)");
+		pstmt.setString(1, memberID);
+		pstmt.setString(2, password);
+		pstmt.setString(3, name);
+		pstmt.setString(4, email);
+
+		pstmt.executeUpdate();
 	} finally {
-		if (stmt != null)
+		if (pstmt != null)
 			try {
-				stmt.close();
+				pstmt.close();
 			} catch (SQLException ex) {
 			}
 		if (conn != null)
@@ -43,25 +45,13 @@
 			}
 	}
 %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>이름 변경</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>삽입</title>
 </head>
-<body>
-	<%
-		if (updateCount > 0) {
-	%>
-	<%=memberID%>의 이름을
-	<%=name%>(으)로 변경
-	<%
-		} else {
-	%>
-	<%=memberID%>
-	아이디가 존재하지 않음
-	<%
-		}
-	%>
-
+<body>MEMBER 테이블에 새로운 레코드를 삽입했습니다.
 </body>
 </html>
